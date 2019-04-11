@@ -10,6 +10,7 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     if @message.save
       respond_to do |format|
+        format.html
         format.json
       end
     else
