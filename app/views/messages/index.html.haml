@@ -1,0 +1,24 @@
+.wrapper
+  = render "shared/sidebar", locals: {groups: @groups}
+  .chat
+    .header
+      .group-info
+        %h2.group-info__title{group_id: @group.id}= @group.    name
+        %ul.group-info__members
+          %li.member Member：
+          - @group.users.each do |user|
+            %li.member= user.name
+      .edit-btn
+        %p.edit-btn__btn-text
+          = link_to "Edit", "/groups/#{params[:group_id]}/edit",     class: "edit-btn__btn-text--link"
+    .messages
+      = render @messages
+    .form
+      = form_for [@group, @message] do |f|
+        .input-box
+          = f.text_field :content, class: "form__message", placeholder: "メッセージを入力"
+          = f.label :image, class: "form__mask" do
+            = fa_icon("image")
+            = f.file_field :image, class: "hidden"
+        = f.submit "Send", class: "form__submit"
+
