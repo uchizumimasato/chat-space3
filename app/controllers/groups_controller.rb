@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
+  before_action :set_group, except: [:new, :index]
   def index
-
   end
 
   def new
@@ -15,6 +15,9 @@ class GroupsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
   end
 
   def update
