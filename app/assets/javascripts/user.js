@@ -16,10 +16,15 @@ $(document).on('turbolinks:load', function() {
   // インクリメンタルサーチ
   $('#user-search-field').on('input', function(e) {
     var input = $("#user-search-field").val();
+    var userIds = []
+    $('.chat-group-users .chat-group-user').each(function(i,user) {
+      userIds.push($(user).attr('id'))
+    })
+    console.log(userIds)
     $.ajax({
       type:     'GET',
       url:      '/users',
-      data:     { keyword: input },
+      data:     { keyword: input, user_ids: userIds },
       dataType: 'json'
     })
     .done(function(users) {
