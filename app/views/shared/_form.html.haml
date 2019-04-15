@@ -27,6 +27,7 @@
       .chat-group-users
         %div{class: 'chat-group-user clearfix', id: current_user.id}
           %p= current_user.name
+          %input#group_user_ids{name: 'group[user_ids][]', type: 'hidden', value: current_user.id}
         - group.users.each do |user|
           - if user.id != current_user.id
             %div{class: "chat-group-user clearfix", id: user.id}
