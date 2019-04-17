@@ -20,7 +20,6 @@ $(document).on('turbolinks:load', function() {
     $('.chat-group-users .chat-group-user').each(function(i,user) {
       userIds.push($(user).attr('id'))
     })
-    console.log(userIds)
     $.ajax({
       type:     'GET',
       url:      '/users',
@@ -36,6 +35,11 @@ $(document).on('turbolinks:load', function() {
           var html = buildUser(name, id, "");
           $('#user-search-result').append(html);
         })
+      } else {
+        html = `<div class="chat-group-user clearfix">
+           <p class="chat-group-user__name">一致するユーザーが存在しません。</p>
+         </div>`
+        $('#user-search-result').append(html)
       }
     })
     .fail(function(){
@@ -58,8 +62,7 @@ $(document).on('turbolinks:load', function() {
     $(this).parent().remove();
     var name = $(this).prev().text();
     var id = $(this).parent().attr('id');
-    var hidden = "";
-    var user = buildUser(name, id, hidden);
+    var user = buildUser(name, id, "");
     $('#user-search-result').append(user);
   });
 });
