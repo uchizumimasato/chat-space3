@@ -27,13 +27,13 @@
       .chat-group-users
         %div{class: 'chat-group-user clearfix', id: current_user.id}
           %p= current_user.name
-          = f.hidden_field :name, name: "group[user_ids][]", value: current_user.id
+          = f.hidden_field :user_ids, name: "group[user_ids][]", value: current_user.id
         - group.users.each do |user|
           - if user.id != current_user.id
             %div{class: "chat-group-user clearfix", id: user.id}
               %p.chat-group-user__name= user.name
               .chat-group-user__btn.chat-group-user__btn--remove 削除
-              = f.hidden_field :name, name: "group[user_ids][]", value: user.id, id: group_user_ids
+              = f.hidden_field :user_ids, name: "group[user_ids][]", value: user.id
   .chat-group-form__field.clearfix
     .chat-group-form__field--left
     .chat-group-form__field--right
