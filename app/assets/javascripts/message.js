@@ -1,8 +1,11 @@
 $(document).on('turbolinks:load', function() {
+  url = $(location).attr('pathname')
+  group_id = $('.group-info').data('group-id');
+
   // メッセージの作成
   function buildMessage(message) {
     var image = message.image.url == null ? '' : `<img src=${message.image.url}>`;
-    var message = `<div class='message' data-message-id=${message.id}>
+    var message = `<div class='message' data-message-id=${message.id} data-group-id=${message.group_id}>
                      <div class='upper-message'>
                        <div class='upper-message__user-name'>
                          ${message.user_name}
@@ -21,12 +24,13 @@ $(document).on('turbolinks:load', function() {
                    </div>`
     return message;
   }
-  // 非同期通信の関数
+
+  // 非同期投稿の関数
   $('#new_message').on('submit', function(e) {
     e.preventDefault();
     var formdata = new FormData($('#new_message').get(0));
     $.ajax({
-      url:         location.href,
+      url:         url,
       type:        "POST",
       data:        formdata,
       dataType:    'json',
@@ -46,20 +50,29 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
-   // 自動更新の関数
-   setInterval(update, 10000)
-   function update() {
-     var last_id = $('.message:last').data('message-id');
-     $.ajax({
-       dataType: 'json',
-       url:      '/api/messages',
-       data:     { id: last_id }
-     })
-     .done(function(messages) {
-       $.each(messages, function(i, message) {
-         var message = buildMessage(message);
-         $('.messages').append(message);
-       });
-     });
-   };
+  // 自動更新の関数
+  if ($(location).attr('pathname') == `/groups/${group_id}/messages`) {
+    setInterval(update, 5000)
+    function update() {
+      var last_message_id = $('.message:last').data('message-id');
+      $.ajax({
+        dataType: 'json',
+        url:      '/api/messages',
+        data:     { last_message_id: last_message_id,
+                    group_id: group_id}
+      })
+      .done(function(messages) {
+        if (messages.length != 0) {
+          $.each(messages, function(i, message) {
+            var message = buildMessage(message);
+            $('.messages').append(message);
+            $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+          });
+        } else {
+          //alert('自動更新に失敗しました。')
+        }
+      });
+    };
+  }
 });
+
