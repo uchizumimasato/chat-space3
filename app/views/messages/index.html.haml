@@ -2,7 +2,7 @@
   = render "shared/sidebar", locals: {groups: @groups}
   .chat
     .header
-      .group-info
+      .group-info{data: {group_id: @group.id}}
         %h2.group-info__title{group_id: @group.id}= @group.    name
         %ul.group-info__members
           %li.member Member：
