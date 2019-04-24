@@ -5,7 +5,7 @@ $(document).on('turbolinks:load', function() {
   // メッセージの作成
   function buildMessage(message) {
     var image = message.image.url == null ? '' : `<img src=${message.image.url}>`;
-    var message = `<div class='message' data-message-id=${message.id} data-group-id=${message.group_id}>
+    var message = `<div class='message' data-message-id=${message.id}>
                      <div class='upper-message'>
                        <div class='upper-message__user-name'>
                          ${message.user_name}
@@ -69,7 +69,7 @@ $(document).on('turbolinks:load', function() {
             $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
           });
         } else {
-          //alert('自動更新に失敗しました。')
+          alert('自動更新に失敗しました。')
         }
       });
     };
