@@ -50,6 +50,6 @@ test:
 production:
   <<: *default
   database: chat-space3_production
-  username: root
+  username: mint
   password: <%= ENV['DATABASE_PASSWORD'] %>
   socket: /var/lib/mysql/mysql.sock
