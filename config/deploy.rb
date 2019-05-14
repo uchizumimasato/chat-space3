@@ -2,7 +2,7 @@
 lock '3.11.0'
 
 set :application, 'chat-space3'
-set :repo_url, 'git@github.com:git@uchizumimasato/chat-space3.git'
+set :repo_url, 'git@github.com:uchizumimasato/chat-space3.git'
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
