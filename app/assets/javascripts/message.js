@@ -69,7 +69,7 @@ $(document).on('turbolinks:load', function() {
             $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
           });
         } else {
-          // alert('自動更新に失敗しました。')
+          alert('自動更新に失敗しました。')
         }
       });
     };
